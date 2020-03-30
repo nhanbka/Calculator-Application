@@ -12,8 +12,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#E6E6E6"
-        android:layout_weight="4">
+        android:layout_weight="4"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/subDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right|bottom"
+            android:layout_weight="3"
+            android:background="#E1E1E1"
+            android:text=""
+            android:textSize="30sp"
+            android:fontFamily="courier new"/>
         <TextView
             android:id="@+id/txtDisplay"
             android:layout_width="match_parent"
@@ -23,7 +34,9 @@
             android:gravity="right|bottom"
             android:paddingBottom="25dp"
             android:paddingRight="25dp"
-            android:text="0" />
+            android:text="0"
+            android:layout_weight="2"
+            android:fontFamily="courier new"/>
     </LinearLayout>
 
     <LinearLayout
@@ -49,7 +62,7 @@
             android:background="#DEDEDE"
             android:text="C" />
         <Button
-            android:id="@+id/btnRemoveUnitNumber"
+            android:id="@+id/btnClearUnitNumber"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -194,6 +207,7 @@
         android:layout_weight="1">
 
         <Button
+            style="android:attr/buttonBarButtonStyle"
             android:id="@+id/btnOpposite"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
