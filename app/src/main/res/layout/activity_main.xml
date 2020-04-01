@@ -25,8 +25,7 @@
             android:paddingBottom="25dp"
             android:paddingRight="25dp"
             android:text="0"
-            android:layout_weight="2"
-            android:fontFamily="courier new"/>
+            android:layout_weight="2" />
     </LinearLayout>
 
     <LinearLayout

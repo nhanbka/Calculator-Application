@@ -3,6 +3,7 @@ package vn.edu.hust.Calculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.View;
@@ -69,7 +70,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         opposite = (Button) findViewById(R.id.btnOpposite);
         equal = (Button) findViewById(R.id.btnEqual);
 
-
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/DS-DIGI.TTF");
+        txtDisplay.setTypeface(typeface);
         One.setOnClickListener(this);
         Two.setOnClickListener(this);
         Three.setOnClickListener(this);
@@ -121,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // input number
         if(v.getId() == R.id.btnNo0){
-            if(txtDisplay.getText().length() == 7 || txtDisplay.getText().length() == 1);
+            if(txtDisplay.getText().length() == 7 || txtDisplay.getText().equals("0"));
             else if(next == 1)
                 txtDisplay.setText("0");
             else {
@@ -248,6 +250,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else {
                     btnClear.callOnClick();
                 }
+                operator = 0;
             }
         }
 
