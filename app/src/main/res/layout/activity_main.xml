@@ -16,16 +16,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/subDisplay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="right|bottom"
-            android:layout_weight="3"
-            android:background="#E1E1E1"
-            android:text=""
-            android:textSize="30sp"
-            android:fontFamily="courier new"/>
-        <TextView
             android:id="@+id/txtDisplay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

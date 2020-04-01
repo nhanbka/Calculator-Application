@@ -30,9 +30,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button Dot;
     private Button opposite;
     private Button equal;
-    private TextView subDisplay;
 
-    private int temp;
+    private int first_temp;
+    private int second_temp;
+    private int next;
     private int operator;       // 1 = add, 2 = minus, 3 = multiply, 4 = divide
 
     @Override
@@ -41,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         txtDisplay = (TextView) findViewById (R.id.txtDisplay);
-        subDisplay = (TextView) findViewById(R.id.subDisplay);
         btnDivide = (Button) findViewById(R.id.btnDivide);
         btnMultiply = (Button) findViewById(R.id.btnMultiply);
         btnAdd = (Button) findViewById(R.id.btnAdd);
@@ -85,19 +85,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         equal.setOnClickListener(this);
 
         operator = 0;
+        next = 1;
     }
 
     @Override
     public void onClick(View v){
         // clear
         if(v.getId() == R.id.btnClear){
-            subDisplay.setText("");
+            next = 1;
             txtDisplay.setText("0");
+            operator = 0;
+            first_temp = 0;
         }
         if(v.getId() == R.id.btnClearElement){
+            next = 0;
             txtDisplay.setText("0");
         }
         if(v.getId() == R.id.btnClearUnitNumber){
+            next = 0;
             String x = txtDisplay.getText().toString();
             if(x.length() == 1)
                 txtDisplay.setText("0");
@@ -109,71 +114,127 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // input number
         if(v.getId() == R.id.btnNo0){
-            if(txtDisplay.getText().length() == 9 || txtDisplay.getText().length() == 1);
-            else txtDisplay.append("0");
+            if(txtDisplay.getText().length() == 7 || txtDisplay.getText().length() == 1);
+            else if(next == 1)
+                txtDisplay.setText("0");
+            else {
+                txtDisplay.append("0");
+                next = 0;
+            }
         }
         if(v.getId() == R.id.btnNo1){
-            if(txtDisplay.getText().length() == 9);
-            else if(txtDisplay.getText().equals("0")){
+            if(txtDisplay.getText().length() == 7);
+            else if(txtDisplay.getText().equals("0") || next == 1){
                 txtDisplay.setText("1");
             } else txtDisplay.append("1");
+            next = 0;
         }
         if(v.getId() == R.id.btnNo2){
-            if(txtDisplay.getText().length() == 9);
-            else if(txtDisplay.getText().equals("0")){
+            if(txtDisplay.getText().length() == 7);
+            else if(txtDisplay.getText().equals("0") || next == 1){
                 txtDisplay.setText("2");
             } else txtDisplay.append("2");
+            next = 0;
         }
         if(v.getId() == R.id.btnNo3){
-            if(txtDisplay.getText().length() == 9);
-            else if(txtDisplay.getText().equals("0")){
+            if(txtDisplay.getText().length() == 7);
+            else if(txtDisplay.getText().equals("0") || next == 1){
                 txtDisplay.setText("3");
             } else txtDisplay.append("3");
+            next = 0;
         }
         if(v.getId() == R.id.btnNo4){
-            if(txtDisplay.getText().length() == 9);
-            else if(txtDisplay.getText().equals("0")){
+            if(txtDisplay.getText().length() == 7);
+            else if(txtDisplay.getText().equals("0") || next == 1){
                 txtDisplay.setText("4");
             } else txtDisplay.append("4");
+            next = 0;
         }
         if(v.getId() == R.id.btnNo5){
-            if(txtDisplay.getText().length() == 9);
-            else if(txtDisplay.getText().equals("0")){
+            if(txtDisplay.getText().length() == 7);
+            else if(txtDisplay.getText().equals("0") || next == 1){
                 txtDisplay.setText("5");
             } else txtDisplay.append("5");
+            next = 0;
         }
         if(v.getId() == R.id.btnNo6){
-            if(txtDisplay.getText().length() == 9);
-            else if(txtDisplay.getText().equals("0")){
+            if(txtDisplay.getText().length() == 7);
+            else if(txtDisplay.getText().equals("0") || next == 1){
                 txtDisplay.setText("6");
             } else txtDisplay.append("6");
+            next = 0;
         }
         if(v.getId() == R.id.btnNo7){
-            if(txtDisplay.getText().length() == 9);
-            else if(txtDisplay.getText().equals("0")){
+            if(txtDisplay.getText().length() == 7);
+            else if(txtDisplay.getText().equals("0") || next == 1){
                 txtDisplay.setText("7");
             } else txtDisplay.append("7");
+            next = 0;
         }
         if(v.getId() == R.id.btnNo8){
-            if(txtDisplay.getText().length() == 9);
-            else if(txtDisplay.getText().equals("0")){
+            if(txtDisplay.getText().length() == 7);
+            else if(txtDisplay.getText().equals("0") || next == 1){
                 txtDisplay.setText("8");
             } else txtDisplay.append("8");
+            next = 0;
         }
         if(v.getId() == R.id.btnNo9){
-            if(txtDisplay.getText().length() == 9);
-            else if(txtDisplay.getText().equals("0")){
+            if(txtDisplay.getText().length() == 7);
+            else if(txtDisplay.getText().equals("0") || next == 1){
                 txtDisplay.setText("9");
             } else txtDisplay.append("9");
+            next = 0;
         }
 
         // handle operator
         if(v.getId() == R.id.btnAdd){
-            if(operator != 0){
+            next = 1;
+            operator = 1;
+            first_temp = Integer.parseInt(txtDisplay.getText().toString());
+        }
+        if(v.getId() == R.id.btnMinus){
+            next = 1;
+            operator = 2;
+            first_temp = Integer.parseInt(txtDisplay.getText().toString());
+        }
+        if(v.getId() == R.id.btnMultiply){
+            next = 1;
+            operator = 3;
+            first_temp = Integer.parseInt(txtDisplay.getText().toString());
+        }
+        if(v.getId() == R.id.btnDivide){
+            next = 1;
+            operator = 4;
+            first_temp = Integer.parseInt(txtDisplay.getText().toString());
+        }
 
+        if(v.getId() == R.id.btnEqual){
+            if(operator == 0);
+            else {
+                next = 1;
+                second_temp = Integer.parseInt(txtDisplay.getText().toString());
+                int result = 0;
+                if(operator == 1){
+                    result = first_temp + second_temp;
+                } else if(operator == 2){
+                    result = first_temp - second_temp;
+                } else if(operator == 3){
+                    result = first_temp * second_temp;
+                } else if(operator == 4){
+                    result = first_temp / second_temp;
+                }
+                txtDisplay.setText(Integer.toString(result));
             }
-            temp = Integer.parseInt(txtDisplay.getText().toString());
+        }
 
+        if(v.getId() == R.id.btnOpposite){
+            String temp = txtDisplay.getText().toString();
+            if(temp.charAt(0) == '-'){
+                temp = temp.substring(1);
+            } else {
+                temp = "-" + temp;
+            }
+            txtDisplay.setText(temp);
         }
 
         if(v.getId() == R.id.btnDot){
