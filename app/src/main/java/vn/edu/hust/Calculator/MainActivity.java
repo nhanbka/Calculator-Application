@@ -2,10 +2,16 @@ package vn.edu.hust.Calculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.concurrent.TimeUnit;
+
+import static android.os.SystemClock.sleep;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -62,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Nine = (Button) findViewById(R.id.btnNo9);
         opposite = (Button) findViewById(R.id.btnOpposite);
         equal = (Button) findViewById(R.id.btnEqual);
+
 
         One.setOnClickListener(this);
         Two.setOnClickListener(this);
@@ -188,21 +195,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // handle operator
         if(v.getId() == R.id.btnAdd){
+            if(next == 0)
+                equal.callOnClick();
             next = 1;
             operator = 1;
             first_temp = Integer.parseInt(txtDisplay.getText().toString());
         }
         if(v.getId() == R.id.btnMinus){
+            if(next == 0)
+                equal.callOnClick();
             next = 1;
             operator = 2;
             first_temp = Integer.parseInt(txtDisplay.getText().toString());
         }
         if(v.getId() == R.id.btnMultiply){
+            if(next == 0)
+                equal.callOnClick();
             next = 1;
             operator = 3;
             first_temp = Integer.parseInt(txtDisplay.getText().toString());
         }
         if(v.getId() == R.id.btnDivide){
+            if(next == 0)
+                equal.callOnClick();
             next = 1;
             operator = 4;
             first_temp = Integer.parseInt(txtDisplay.getText().toString());
@@ -213,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             else {
                 next = 1;
                 second_temp = Integer.parseInt(txtDisplay.getText().toString());
-                int result = 0;
+                int result = 0, error = 0;
                 if(operator == 1){
                     result = first_temp + second_temp;
                 } else if(operator == 2){
@@ -221,9 +236,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else if(operator == 3){
                     result = first_temp * second_temp;
                 } else if(operator == 4){
-                    result = first_temp / second_temp;
+                    try {
+                        result = first_temp / second_temp;
+                    } catch(ArithmeticException a){
+                        txtDisplay.setText("Math Err");
+                        error = 1;
+                    }
                 }
-                txtDisplay.setText(Integer.toString(result));
+                if(error == 0)
+                    txtDisplay.setText(Integer.toString(result));
+                else {
+                    btnClear.callOnClick();
+                }
             }
         }
 
@@ -231,7 +255,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String temp = txtDisplay.getText().toString();
             if(temp.charAt(0) == '-'){
                 temp = temp.substring(1);
-            } else {
+            } else if(temp.equals("0"));
+            else {
                 temp = "-" + temp;
             }
             txtDisplay.setText(temp);
